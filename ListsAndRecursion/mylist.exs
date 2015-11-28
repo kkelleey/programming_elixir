@@ -34,4 +34,49 @@ defmodule MyList do
   def caesar([head | tail], n) do
     [head + n | caesar(tail, n)]
   end
+
+  # Exercise: ListsAndRecursion-5
+  def all?([], _), do: true
+  def all?([head | tail], func) do
+   func.(head) && all?(tail, func)
+  end
+
+  def each([], _), do: :ok
+  def each([head | tail], func) do
+    func.(head)
+    each(tail, func)
+  end
+
+  def filter([], _), do: []
+  def filter([head | tail], func) do
+    if func.(head) do
+      [head | filter(tail, func)]
+    else
+      filter(tail, func)
+    end
+  end
+
+  def split(list, count) when count < 0 do
+    _split(list, length(list) + count, [])
+  end
+  def split(list, count), do: _split(list, count, [])
+  defp _split([], _, _), do: []
+  defp _split(list, 0, acc), do: [acc, list]
+  defp _split([head | tail], count, acc) when count > 0 do
+    _split(tail, count - 1, acc ++ [head])
+  end
+
+  def take(_, 0), do: []
+  def take([head | tail], count) do
+    [head | take(tail, count - 1)]
+  end
+
+  # Exercise: ListsAndRecursion-6
+  def flatten([]), do: []
+  def flatten([head | tail]) when is_list(head) do
+    flatten(head) ++ flatten(tail)
+  end
+  def flatten([head | tail]) do
+    [head | flatten(tail)]
+  end
 end
