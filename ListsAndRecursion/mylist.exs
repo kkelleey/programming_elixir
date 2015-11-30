@@ -35,6 +35,15 @@ defmodule MyList do
     [head + n | caesar(tail, n)]
   end
 
+  # Exercise: ListsAndRecursion-4
+  def span(from, to) when from == to do
+    [from]
+  end
+
+  def span(from, to) do
+    [from | span(from + 1, to)]
+  end
+
   # Exercise: ListsAndRecursion-5
   def all?([], _), do: true
   def all?([head | tail], func) do
@@ -78,5 +87,11 @@ defmodule MyList do
   end
   def flatten([head | tail]) do
     [head | flatten(tail)]
+  end
+
+  # Exercise: ListsAndRecursion-7
+  def primes(2, n) do
+    non_primes = for x <- span(2,n), y <- span(2,n), x > y, rem(x, y) == 0, do: x
+    span(2,n) -- non_primes
   end
 end
