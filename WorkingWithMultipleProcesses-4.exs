@@ -7,7 +7,7 @@ defmodule Link do
 
   def run do
     Process.flag(:trap_exit, true)
-    spawn_link(Link, :process, [])
+    spawn_monitor(Link, :process, [])
     sleep 500
     receive do
       msg -> IO.puts "MESSAGE RECEIVED: #{inspect msg}"
